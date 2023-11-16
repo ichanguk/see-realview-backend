@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Table(
         name = "post_tb",
         uniqueConstraints = {
-                @UniqueConstraint(columnNames = {"id", "email", "is_active"})
+                @UniqueConstraint(columnNames = {"id", "url", "is_active"})
         },
         indexes = {
                 @Index(name = "post_url_index", columnList = "url")
@@ -26,9 +26,6 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", length = 20, nullable = false)
-    private String name;
-
     @Column(name = "url", length = 100, nullable = false)
     private String url;
 
@@ -42,9 +39,8 @@ public class Post {
     private Boolean isActive;
 
     @Builder
-    public Post(Long id, String name, String url, LocalDateTime createdAt, LocalDateTime modifiedAt) {
+    public Post(Long id, String url, LocalDateTime createdAt, LocalDateTime modifiedAt) {
         this.id = id;
-        this.name = name;
         this.url = url;
         this.createdAt = (createdAt == null? LocalDateTime.now() : createdAt);
         this.modifiedAt = (modifiedAt == null? LocalDateTime.now() : modifiedAt);
